@@ -798,7 +798,7 @@ class AmazonAdsAPIConnector:
         report_request: dict,
     ):
         """
-        Method to get a report.
+        Method to retrieve a report.
 
         Args:
             report_request (dict): The report request containing the report id.

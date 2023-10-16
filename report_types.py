@@ -1,6 +1,6 @@
 class Report:
     """
-    Base class for all report types
+    Base class for all report types.
     """
 
     def __init__(
