@@ -87,6 +87,6 @@ Please note that report gerneration is asynchronous. The `create_report` method 
 
 ## Dependencies
 
-This library depends on the `requests` library, which is not included in the standard library. To install `requests`, run the following command in your terminal:
-    
+This code depends on the `requests` library, which is not included in the standard library. To install `requests`, run the following command in your terminal:
+
     ```p install requests```
