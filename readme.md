@@ -2,9 +2,9 @@
 
 A simple Python wrapper for the <a href="https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod">latest version of the Amazon Ads API for Sponsored Products campaign management</a>.
 
-This library covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation.
+This library covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation. It features keyword and negative keyword targeting, as well as product AISIN targeting. 
 
-Please note that this library does not yet support Sponsored Brands and Sponsored Display campaigns. It also does not yet feature product and category targeting.
+Please note that this library does not yet support Sponsored Brands and Sponsored Display campaigns.
 
 ## Getting started
 
@@ -14,8 +14,9 @@ This class provides methods to create, list, update and delete
 - campaigns, 
 - ad groups, 
 - product ads, 
-- keywords, and 
-- negative keywords. 
+- keywords, 
+- negative keywords, and
+- targeting clauses (ASIN targeting). 
 
 It furthermore provides methods to request and retrieve reports via the API.
 

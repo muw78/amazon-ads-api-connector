@@ -717,12 +717,163 @@ class AmazonAdsAPIConnector:
             payload,
         )
 
+    def list_targeting_clauses(
+        self,
+        campaign_ids: list = [],
+        ad_group_ids: list = [],
+        states=[
+            "ENABLED",
+            "PAUSED",
+            "ARCHIVED",
+        ],
+        include_extended_data_fields=False,
+    ) -> list:
+        """
+        Method to list targeting clauses.
+
+        Args:
+            campaign_ids (list, optional): The ids of the campaigns the targeting clauses belong to. Defaults to [].
+            ad_group_ids (list, optional): The ids of the ad groups the targeting clauses belong to. Defaults to [].
+            states (list, optional): The states of the targeting clauses to be listed. Defaults to ["ENABLED", "PAUSED", "ARCHIVED"].
+            include_extended_data_fields (bool, optional): Whether to include extended data fields. Defaults to False.
+
+        Returns:
+            list: The list of targeting clauses.
+        """
+        url = "https://advertising-api-eu.amazon.com/sp/targets/list"
+        payload = {
+            "campaignIdFilter": {"include": campaign_ids},
+            "adGroupIdFilter": {"include": ad_group_ids},
+            "stateFilter": {"include": states},
+            "includeExtendedDataFields": include_extended_data_fields,
+        }
+        headers = self._get_headers("application/vnd.spTargetingClause.v3+json")
+        return self._paginate("POST", url, headers, payload, "targetingClauses")
+
+    def create_targeting_clauses(
+        self,
+        targeting_clauses: list,
+    ) -> dict:
+        """
+        Method to create targeting clauses.
+
+        Args:
+            targeting_clauses (list): The targeting clauses to be created.
+            For more information on the structure of the targeting clauses, see
+            https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/TargetingClauses/operation/CreateSponsoredProductsTargetingClauses
+
+        Returns:
+            dict: The response from the API.
+        """
+        url = "https://advertising-api-eu.amazon.com/sp/targets"
+        payload = {
+            "targetingClauses": targeting_clauses,
+        }
+        headers = self._get_headers("application/vnd.spTargetingClause.v3+json")
+        return self._request_api(
+            "POST",
+            url,
+            headers,
+            payload,
+        )
+
+    def update_targeting_clauses(
+        self,
+        targeting_clauses: list,
+    ) -> dict:
+        """
+        Method to update targeting clauses.
+
+        Args:
+            targeting_clauses (list): The targeting clauses to be updated.
+            For more information on the structure of the targeting clauses, see
+            https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/CampaignNegativeTargetingClauses/operation/UpdateSponsoredProductsCampaignNegativeTargetingClauses
+
+        Returns:
+            dict: The response from the API.
+        """
+        url = "https://advertising-api-eu.amazon.com/sp/targets"
+        payload = {
+            "targetingClauses": targeting_clauses,
+        }
+        headers = self._get_headers("application/vnd.spTargetingClause.v3+json")
+        return self._request_api(
+            "PUT",
+            url,
+            headers,
+            payload,
+        )
+
+    def delete_targeting_clauses(
+        self,
+        targeting_clause_ids: list,
+    ) -> dict:
+        """
+        Method to delete targeting clauses.
+
+        Args:
+            targeting_clause_ids (list): The ids of the targeting clauses to be deleted.
+
+        Returns:
+            dict: The response from the API.
+        """
+        url = "https://advertising-api-eu.amazon.com/sp/targets/delete"
+        payload = {
+            "targetIdFilter": {
+                "include": targeting_clause_ids,
+            }
+        }
+        headers = self._get_headers("application/vnd.spTargetingClause.v3+json")
+        return self._request_api(
+            "POST",
+            url,
+            headers,
+            payload,
+        )
+
     def get_keyword_recommendations(
         self,
         campaign_id: str,
         ad_group_id: str,
         targets,
-    ):
+    ) -> dict:
+        """
+        Method to get keyword recommendations.
+
+        Args:
+            campaign_id (str): The id of the campaign.
+            ad_group_id (str): The id of the ad group.
+            targets (list): The targets for which to get keyword recommendations.
+            For more information on the structure of the targets, see
+            https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keyword-Recommendations/operation/getRankedKeywordRecommendation
+
+        Returns:
+            dict: The response from the API.
+        """
+        url = (
+            "https://advertising-api-eu.amazon.com/sp/targets/keywords/recommendations"
+        )
+        payload = {
+            "recommendationType": "KEYWORDS_FOR_ADGROUP",
+            "campaignId": campaign_id,
+            "adGroupId": ad_group_id,
+            "targets": targets,
+            "maxRecommendations": 0,
+        }
+        headers = self._get_headers("application/vnd.spkeywordsrecommendation.v4+json")
+        return self._request_api(
+            "POST",
+            url,
+            headers,
+            payload,
+        )
+
+    def get_keyword_recommendations(
+        self,
+        campaign_id: str,
+        ad_group_id: str,
+        targets,
+    ) -> dict:
         """
         Method to get keyword recommendations.
 
