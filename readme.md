@@ -77,7 +77,7 @@ Please note that all create and update methods expect a list of dictionaries as 
 The file `report_types.py` contains classes with basic configurations of the available report types. For more information about the report types, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/report-types). To request a report you need to pass an instance of one of these classes to the `create_report` method of the `AmazonAdsApiConnector` class. To customize the report, change the properties of the class instance before passing it to the `create_report` method.
 
 ```python
-from report_types import SponsoredProductsReport
+from report_types import SearchTermReport
 
 report_configuration = SearchTermReport("2023-10-01", "2023-10-07")
 
