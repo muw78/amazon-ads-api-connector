@@ -2,15 +2,13 @@
 
 A simple Python wrapper for the <a href="https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod">latest version of the Amazon Ads API for Sponsored Products campaign management</a>.
 
-This library covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation. It features keyword and negative keyword targeting, as well as product AISIN targeting. 
+This module covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation. It features keyword and negative keyword targeting, as well as product AISIN targeting. 
 
-Please note that this library does not yet support Sponsored Brands and Sponsored Display campaigns.
+Please note that this module does not yet support Sponsored Brands and Sponsored Display campaigns.
 
 ## Getting started
 
-The primary class of the library is `AmazonAdsApiConnector`, which is defined in the file `amazon_ads_api_connector.py`. 
-
-This class provides methods to create, list, update and delete 
+The primary class of the module is `AmazonAdsAPIConnector`. This class provides methods to create, list, update and delete 
 - campaigns, 
 - ad groups, 
 - product ads, 
@@ -20,25 +18,25 @@ This class provides methods to create, list, update and delete
 
 It furthermore provides methods to request and retrieve reports via the API.
 
-To create an instance of the `AmazonAdsApiConnector`, you need to pass your Amazon Advertising API credentials as a dictionary. The dictionary must contain the following keys:
+To create an instance of the `AmazonAdsAPIConnector`, you need to pass your Amazon Advertising API credentials as a dictionary. The dictionary must contain the following keys:
 
 - `refresh_token`
 - `client_id`
 - `client_secret`
 - `profile_id`
 
-Upon initialization, the AmazonAdsApiConnector object will create a new access token. The access token will be valid for 60 minutes, however, the object automatically requests a new access token in case it has expired when trying to make a new request.
+Upon initialization, the AmazonAdsAPIConnector object will create a new access token. This access token will be valid for 60 minutes, however, the object automatically requests a new access token in case it has expired when trying to make a new request.
 
 For more information about the Amazon Advertising API, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/get-started/how-to-use-api).
 
 ## Examples
 ### Import the library
 ```python
-from amazon_ads_api_connector import AmazonAdsApiConnector
+from amazon_ads_api_connector import AmazonAdsAPIConnector
 ```
 ### Create an instance
 ```python
-api = AmazonAdsApiConnector(
+api = AmazonAdsAPIConnector(
     {
         "refresh_token": "your_refresh_token",
         "client_id": "your_client_id",
@@ -70,11 +68,19 @@ api.create_campaign(
     ]
 )
 ```
-Please note that all create and update methods expect a list of dictionaries as their only argument. This is because the API allows to create or update multiple objects at once. To ensure the greatest possible flexibility, the structure of the list and the dictionaries corresponds to the structure specified by the API and described in the API documentation.
+Please note that all create and update methods expect a list of dictionaries as their only argument. This reflects the fact that the Amazon Ads API allows to create or update multiple objects at once. To ensure the greatest possible flexibility, the structure of the list and the dictionaries corresponds to the structure specified by the API and described in the API documentation.
 
 ### Request and retrieve a report
 
-The file `report_types.py` contains classes with basic configurations of the available report types. For more information about the report types, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/report-types). To request a report you need to pass an instance of one of these classes to the `create_report` method of the `AmazonAdsApiConnector` class. To customize the report, change the properties of the class instance before passing it to the `create_report` method.
+The module furthermore contains classes which represent basic configurations of the available report types:
+
+- `CampaignsReport`
+- `TargetingReport`
+- `SearchTermReport`
+- `AdvertisedProductReports`
+- `PurchasedProductReport`
+
+For more information about the report types, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/report-types). To request a report you need to pass an instance of one of these classes to the `create_report` method of the `AmazonAdsAPIConnector` class. To customize the report, change the properties of the class instance before passing it to the `create_report` method.
 
 ```python
 from report_types import SearchTermReport
@@ -88,8 +94,4 @@ Please note that report gerneration is asynchronous. The `create_report` method 
 
 ## Dependencies
 
-This code depends on the `requests` library, which is not included in the standard library. To install `requests`, run the following command in your terminal:
-
-```
-pip install requests
-```
+This code depends on the `requests` library, which is not included in the standard library, but will be installed automatically when you install the `amazon-ads-api-connector` package.

@@ -2,7 +2,7 @@ import json
 import gzip
 import requests
 from time import sleep
-from report_types import Report
+from amazon_ads_api_connector.report_types import Report
 
 
 class AmazonAdsAPIConnector:
