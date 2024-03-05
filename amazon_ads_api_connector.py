@@ -113,7 +113,7 @@ class AmazonAdsAPIConnector:
         headers: dict,
         payload: dict,
         results_name: str,
-    ) -> list:
+    ) -> dict | list:
         """
         Method to return lists of results and to paginate in case the results are longer than the maximum page size for the given endpoint.
 
@@ -135,23 +135,24 @@ class AmazonAdsAPIConnector:
                 headers,
                 payload,
             )
-            results.extend(response[results_name])
-            if "nextToken" in response:
-                payload["nextToken"] = response["nextToken"]
-            else:
-                break
+            if isinstance(response, dict):
+                results.extend(response[results_name])
+                if "nextToken" in response:
+                    payload["nextToken"] = response["nextToken"]
+                else:
+                    break
         return results
 
     def list_campaigns(
         self,
-        states: str = [
+        states: list[str] = [
             "ENABLED",
             "PAUSED",
             "ARCHIVED",
         ],
         include_extended_data_fields: bool = False,
         name_contains: list = [""],
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list campaigns.
 
@@ -178,7 +179,7 @@ class AmazonAdsAPIConnector:
     def create_campaigns(
         self,
         campaigns: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create campaigns.
 
@@ -206,7 +207,7 @@ class AmazonAdsAPIConnector:
     def update_campaigns(
         self,
         campaigns: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update campaigns.
 
@@ -234,7 +235,7 @@ class AmazonAdsAPIConnector:
     def delete_campaigns(
         self,
         campaign_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete campaigns.
 
@@ -261,14 +262,14 @@ class AmazonAdsAPIConnector:
     def list_ad_groups(
         self,
         campaign_ids: list = [],
-        states: str = [
+        states: list[str] = [
             "ENABLED",
             "PAUSED",
             "ARCHIVED",
         ],
         include_extended_data_fields: bool = False,
         name_contains: list = [""],
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list ad groups.
 
@@ -297,7 +298,7 @@ class AmazonAdsAPIConnector:
     def create_ad_groups(
         self,
         ad_groups: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create ad groups.
 
@@ -324,7 +325,7 @@ class AmazonAdsAPIConnector:
     def update_ad_groups(
         self,
         ad_groups: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update ad groups.
 
@@ -351,7 +352,7 @@ class AmazonAdsAPIConnector:
     def delete_ad_groups(
         self,
         ad_group_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete ad groups.
 
@@ -385,7 +386,7 @@ class AmazonAdsAPIConnector:
             "ARCHIVED",
         ],
         include_extended_data_fields=False,
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list product ads.
 
@@ -408,7 +409,7 @@ class AmazonAdsAPIConnector:
     def create_product_ads(
         self,
         product_ads: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create product ads.
 
@@ -435,7 +436,7 @@ class AmazonAdsAPIConnector:
     def update_product_ads(
         self,
         product_ads: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update product ads.
 
@@ -462,7 +463,7 @@ class AmazonAdsAPIConnector:
     def delete_product_ads(
         self,
         product_ad_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete product ads.
 
@@ -497,7 +498,7 @@ class AmazonAdsAPIConnector:
         ],
         match_types=["BROAD", "EXACT", "PHRASE"],
         include_extended_data_fields=False,
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list keywords.
 
@@ -525,7 +526,7 @@ class AmazonAdsAPIConnector:
     def create_keywords(
         self,
         keywords: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create keywords.
 
@@ -552,7 +553,7 @@ class AmazonAdsAPIConnector:
     def update_keywords(
         self,
         keywords: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update keywords.
 
@@ -579,7 +580,7 @@ class AmazonAdsAPIConnector:
     def delete_keywords(
         self,
         keyword_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete keywords.
 
@@ -613,7 +614,7 @@ class AmazonAdsAPIConnector:
             "ARCHIVED",
         ],
         include_extended_data_fields=False,
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list negative keywords.
 
@@ -639,7 +640,7 @@ class AmazonAdsAPIConnector:
     def create_negative_keywords(
         self,
         negative_keywords: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create negative keywords.
 
@@ -666,7 +667,7 @@ class AmazonAdsAPIConnector:
     def update_negative_keywords(
         self,
         negative_keywords: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update negative keywords.
 
@@ -693,7 +694,7 @@ class AmazonAdsAPIConnector:
     def delete_negative_keywords(
         self,
         negative_keyword_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete negative keywords.
 
@@ -727,7 +728,7 @@ class AmazonAdsAPIConnector:
             "ARCHIVED",
         ],
         include_extended_data_fields=False,
-    ) -> list:
+    ) -> dict | list:
         """
         Method to list targeting clauses.
 
@@ -753,7 +754,7 @@ class AmazonAdsAPIConnector:
     def create_targeting_clauses(
         self,
         targeting_clauses: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create targeting clauses.
 
@@ -780,7 +781,7 @@ class AmazonAdsAPIConnector:
     def update_targeting_clauses(
         self,
         targeting_clauses: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to update targeting clauses.
 
@@ -807,7 +808,7 @@ class AmazonAdsAPIConnector:
     def delete_targeting_clauses(
         self,
         targeting_clause_ids: list,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to delete targeting clauses.
 
@@ -836,44 +837,7 @@ class AmazonAdsAPIConnector:
         campaign_id: str,
         ad_group_id: str,
         targets,
-    ) -> dict:
-        """
-        Method to get keyword recommendations.
-
-        Args:
-            campaign_id (str): The id of the campaign.
-            ad_group_id (str): The id of the ad group.
-            targets (list): The targets for which to get keyword recommendations.
-            For more information on the structure of the targets, see
-            https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Keyword-Recommendations/operation/getRankedKeywordRecommendation
-
-        Returns:
-            dict: The response from the API.
-        """
-        url = (
-            "https://advertising-api-eu.amazon.com/sp/targets/keywords/recommendations"
-        )
-        payload = {
-            "recommendationType": "KEYWORDS_FOR_ADGROUP",
-            "campaignId": campaign_id,
-            "adGroupId": ad_group_id,
-            "targets": targets,
-            "maxRecommendations": 0,
-        }
-        headers = self._get_headers("application/vnd.spkeywordsrecommendation.v4+json")
-        return self._request_api(
-            "POST",
-            url,
-            headers,
-            payload,
-        )
-
-    def get_keyword_recommendations(
-        self,
-        campaign_id: str,
-        ad_group_id: str,
-        targets,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to get keyword recommendations.
 
@@ -908,7 +872,7 @@ class AmazonAdsAPIConnector:
     def create_report(
         self,
         report: Report,
-    ) -> dict:
+    ) -> dict | list:
         """
         Method to create a report.
 
