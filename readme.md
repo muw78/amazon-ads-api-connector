@@ -6,6 +6,14 @@ This module covers the key endpoints for managing Sponsored Products campaigns. 
 
 Please note that this module does not yet support Sponsored Brands and Sponsored Display campaigns.
 
+## Installation
+
+Amazon Ads API Connector is available on PyPI:
+
+```bash
+pip install amazon-ads-api-connector
+```
+
 ## Getting started
 
 The primary class of the module is `AmazonAdsAPIConnector`. This class provides methods to create, list, update and delete 
