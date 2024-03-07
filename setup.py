@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="amazon-ads-api-connector",
-    version="0.0.2",
+    version="0.0.4",
     packages=find_packages(),
     install_requires=[
         "requests",
@@ -14,4 +14,5 @@ setup(
     author="Markus U. Wahl",
     long_description=description,
     long_description_content_type="text/markdown",
+    description="API wrapper for the Amazon Ads API",
 )

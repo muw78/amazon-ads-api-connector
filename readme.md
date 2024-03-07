@@ -26,7 +26,7 @@ The primary class of the module is `AmazonAdsAPIConnector`. This class provides 
 
 It furthermore provides methods to request and retrieve reports via the API.
 
-To create an instance of the `AmazonAdsAPIConnector`, you need to pass your Amazon Advertising API credentials as a dictionary. The dictionary must contain the following keys:
+To create an instance of the `AmazonAdsAPIConnector`, you need to pass your Amazon Ads API credentials as a dictionary. The dictionary must contain the following keys:
 
 - `refresh_token`
 - `client_id`
@@ -35,7 +35,7 @@ To create an instance of the `AmazonAdsAPIConnector`, you need to pass your Amaz
 
 Upon initialization, the AmazonAdsAPIConnector object will create a new access token. This access token will be valid for 60 minutes, however, the object automatically requests a new access token in case it has expired when trying to make a new request.
 
-For more information about the Amazon Advertising API, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/get-started/how-to-use-api).
+For more information about the Amazon Ads API, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/get-started/how-to-use-api).
 
 ## Examples
 ### Import the library
@@ -102,4 +102,4 @@ Please note that report gerneration is asynchronous. The `create_report` method 
 
 ## Dependencies
 
-This code depends on the `requests` library, which is not included in the standard library, but will be installed automatically when you install the `amazon-ads-api-connector` package.
+This module depends on the `requests` library, which is not included in the standard library, but will be installed automatically when you install the `amazon-ads-api-connector` package.
