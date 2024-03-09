@@ -2,7 +2,7 @@ import json
 import gzip
 import requests
 from time import sleep
-from amazon_ads_api_connector.report_types import Report
+from .report_types import Report
 
 
 class AmazonAdsAPIConnector:
@@ -862,6 +862,45 @@ class AmazonAdsAPIConnector:
             "maxRecommendations": 0,
         }
         headers = self._get_headers("application/vnd.spkeywordsrecommendation.v4+json")
+        return self._request_api(
+            "POST",
+            url,
+            headers,
+            payload,
+        )
+
+    def get_bid_recommendations_for_ad_groups(
+        self,
+        campaign_id: str,
+        ad_group_ids: list,
+        targeting_expressions: list = [
+            {"type": "CLOSE_MATCH"},
+            {"type": "LOOSE_MATCH"},
+            {"type": "SUBSTITUTES"},
+            {"type": "COMPLEMENTS"},
+        ],
+    ) -> dict:
+        """
+        Method to get bid recommendations for ad groups. It supports keyword, auto and product targets.
+        The targeting expressions of the method default to recommendations for auto campaigns.
+
+        Args:
+            campaign_id (str): The id of the campaign.
+            ad_group_ids (list): The ids of the ad groups.
+            targeting_expressions (list, optional): The targeting expressions for which to get bid recommendations. Defaults to [{"type": "CLOSE_MATCH"}, {"type": "LOOSE_MATCH"}, {"type": "SUBSTITUTES"}, {"type": "COMPLEMENTS"}].
+            For more information on the structure of the targeting expressions, see
+            https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod#tag/Theme-based-bid-recommendations/operation/GetThemeBasedBidRecommendationForAdGroup_v1
+        """
+        url = "https://advertising-api-eu.amazon.com/sp/targets/bid/recommendations"
+        payload = {
+            "targetingExpressions": targeting_expressions,
+            "campaignId": campaign_id,
+            "recommendationType": "BIDS_FOR_EXISTING_AD_GROUP",
+            "adGroupId": ad_group_ids,
+        }
+        headers = self._get_headers(
+            "application/vnd.spthemebasedbidrecommendation.v4+json"
+        )
         return self._request_api(
             "POST",
             url,

@@ -91,7 +91,7 @@ The module furthermore contains classes which represent basic configurations of 
 For more information about the report types, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/guides/reporting/v3/report-types). To request a report you need to pass an instance of one of these classes to the `create_report` method of the `AmazonAdsAPIConnector` class. To customize the report, change the properties of the class instance before passing it to the `create_report` method.
 
 ```python
-from report_types import SearchTermReport
+from amazon_ads_api_connector import SearchTermReport
 
 report_configuration = SearchTermReport("2023-10-01", "2023-10-07")
 
