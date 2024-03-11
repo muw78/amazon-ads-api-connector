@@ -2,7 +2,7 @@
 
 A simple Python wrapper for the <a href="https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod">latest version of the Amazon Ads API for Sponsored Products campaign management</a>.
 
-This module covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation. It features keyword and negative keyword targeting, as well as product AISIN targeting. 
+This module covers the key endpoints for managing Sponsored Products campaigns. This includes methods for authentication, pagination and report generation. It features keyword and negative keyword targeting, as well as product AISIN targeting and auto campaigns. 
 
 Please note that this module does not yet support Sponsored Brands and Sponsored Display campaigns.
 
@@ -22,9 +22,11 @@ The primary class of the module is `AmazonAdsAPIConnector`. This class provides 
 - product ads, 
 - keywords, 
 - negative keywords, and
-- targeting clauses (ASIN targeting). 
+- targeting clauses (ASIN targeting).
 
-It furthermore provides methods to request and retrieve reports via the API.
+It furthermore provides methods to get `keyword recommendations`, which include bid recommendations for keyword targets, as well as `bid recommendations for ad groups`, which include bid recommendations for auto campaigns.
+
+And lastly, it provides also methods to request and retrieve reports via the API.
 
 To create an instance of the `AmazonAdsAPIConnector`, you need to pass your Amazon Ads API credentials as a dictionary. The dictionary must contain the following keys:
 
@@ -76,7 +78,7 @@ api.create_campaign(
     ]
 )
 ```
-Please note that all create and update methods expect a list of dictionaries as their only argument. This reflects the fact that the Amazon Ads API allows to create or update multiple objects at once. To ensure the greatest possible flexibility, the structure of the list and the dictionaries corresponds to the structure specified by the API and described in the API documentation.
+Please note that all create and update methods expect a list of dictionaries as their only argument. This reflects the fact that the Amazon Ads API allows to create or update multiple objects at once. To ensure the greatest possible flexibility, the structure of the list and the dictionaries corresponds to the structure specified by the API and described in the API documentation. For more information about the structure of the lists and dictionaries, as well for information on data limits per request, please visit the [official documentation](https://advertising.amazon.com/API/docs/en-us/sponsored-products/3-0/openapi/prod).
 
 ### Request and retrieve a report
 
@@ -102,4 +104,4 @@ Please note that report gerneration is asynchronous. The `create_report` method 
 
 ## Dependencies
 
-This module depends on the `requests` library, which is not included in the standard library, but will be installed automatically when you install the `amazon-ads-api-connector` package.
+This module depends on the `requests` library, which is not included in the Python standard library, but will be installed automatically when you install the `amazon-ads-api-connector` package.
